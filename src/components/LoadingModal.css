@@ -1,0 +1,38 @@
+.loading-modal-content {
+  background: white;
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  box-shadow: 0 4px 20px rgba(30, 32, 34, 0.1);
+  border: 1px solid #C9D6DF;
+  text-align: center;
+  max-width: 400px;
+}
+
+.loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #F0F5F9;
+  border-top-color: #1E2022;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1.5rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-modal-content h2 {
+  margin: 0 0 0.5rem 0;
+  color: #1E2022;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.loading-modal-content p {
+  margin: 0;
+  color: #52616B;
+  font-size: 1rem;
+}
