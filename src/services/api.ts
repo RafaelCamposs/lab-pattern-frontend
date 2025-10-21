@@ -277,6 +277,13 @@ export const submissionApi = {
   },
 };
 
+export interface UserStatistics {
+  completedChallenges: number;
+  percentage: number;
+  currentStreak: number;
+  longestStreak: number;
+}
+
 export const userApi = {
   getUserChallenges: async (userId: string, page: number = 0, pageSize: number = 15): Promise<PageResponse<Challenge>> => {
     const response = await fetch(`http://localhost:8080/v1/users/${userId}/challenges?page=${page}&pageSize=${pageSize}`, {
@@ -293,6 +300,26 @@ export const userApi = {
       }
       const error = await response.text();
       throw new Error(error || 'Failed to fetch user challenges');
+    }
+
+    return response.json();
+  },
+
+  getUserStatistics: async (userId: string): Promise<UserStatistics> => {
+    const response = await fetch(`http://localhost:8080/v1/users/${userId}/statistics`, {
+      method: 'GET',
+      headers: getAuthHeaders(),
+    });
+
+    if (!response.ok) {
+      // Handle 403 Forbidden - likely token expiration
+      if (response.status === 403) {
+        console.error('403 Forbidden: Token may be expired');
+        handleTokenExpiration();
+        throw new Error('Your session has expired. Please log in again.');
+      }
+      const error = await response.text();
+      throw new Error(error || 'Failed to fetch user statistics');
     }
 
     return response.json();

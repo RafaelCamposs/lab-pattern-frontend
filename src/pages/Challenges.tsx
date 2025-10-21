@@ -25,7 +25,7 @@ export default function Challenges() {
 
     setLoading(true);
     try {
-      const response: PageResponse<Challenge> = await userApi.getUserChallenges(userId, page, 15);
+      const response: PageResponse<Challenge> = await userApi.getUserChallenges(userId, page, 10);
       setChallenges(response.content);
       setTotalPages(response.totalPages);
     } catch (error) {
@@ -120,25 +120,27 @@ export default function Challenges() {
               </table>
             </div>
 
-            <div className="pagination">
-              <button
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 0 || loading}
-                className="pagination-btn"
-              >
-                Previous
-              </button>
-              <span className="pagination-info">
-                Page {currentPage + 1} of {totalPages}
-              </span>
-              <button
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage >= totalPages - 1 || loading}
-                className="pagination-btn"
-              >
-                Next
-              </button>
-            </div>
+            {totalPages > 1 && (
+              <div className="pagination">
+                <button
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 0 || loading}
+                  className="pagination-btn"
+                >
+                  Previous
+                </button>
+                <span className="pagination-info">
+                  Page {currentPage + 1} of {totalPages}
+                </span>
+                <button
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage >= totalPages - 1 || loading}
+                  className="pagination-btn"
+                >
+                  Next
+                </button>
+              </div>
+            )}
           </>
         )}
       </div>

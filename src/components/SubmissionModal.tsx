@@ -29,6 +29,18 @@ export default function SubmissionModal({ isOpen, onClose, submission }: Submiss
         </div>
 
         <div className="modal-body">
+          {/* Submitted Code Section */}
+          <div className="code-section">
+            <h3>Your Code</h3>
+            <div className="code-display">
+              <div className="code-header">
+                <span className="language-badge">{submission.language}</span>
+              </div>
+              <pre>
+                <code>{submission.code}</code>
+              </pre>
+            </div>
+          </div>
 
           {hasEvaluation ? (
             <div className="evaluation-section">

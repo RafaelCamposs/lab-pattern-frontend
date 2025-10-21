@@ -26,7 +26,7 @@ export default function SignUp() {
 
     try {
       await signup(username, email, password);
-      navigate('/dashboard');
+      navigate('/');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Signup failed');
     } finally {
