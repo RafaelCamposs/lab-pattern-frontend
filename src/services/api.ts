@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
 
 export interface SignUpRequest {
   username: string;
@@ -142,7 +142,7 @@ export const handleTokenExpiration = () => {
 
 export const patternApi = {
   getAllPatterns: async (): Promise<Pattern[]> => {
-    const response = await fetch('http://localhost:8080/v1/patterns', {
+    const response = await fetch(`${API_BASE_URL}/v1/patterns`, {
       method: 'GET',
       headers: getAuthHeaders(),
     });
@@ -158,7 +158,7 @@ export const patternApi = {
 
 export const challengeApi = {
   generateChallenge: async (): Promise<Challenge> => {
-    const response = await fetch('http://localhost:8080/v1/challenges', {
+    const response = await fetch(`${API_BASE_URL}/v1/challenges`, {
       method: 'POST',
       headers: getAuthHeaders(),
     });
@@ -178,7 +178,7 @@ export const challengeApi = {
   },
 
   getDailyChallenge: async (): Promise<Challenge> => {
-    const response = await fetch('http://localhost:8080/v1/challenges/daily', {
+    const response = await fetch(`${API_BASE_URL}/v1/challenges/daily`, {
       method: 'GET',
       headers: getAuthHeaders(),
     });
@@ -236,7 +236,7 @@ export interface PageResponse<T> {
 
 export const submissionApi = {
   submitSolution: async (data: SubmitSolutionRequest): Promise<SubmissionResponse> => {
-    const response = await fetch('http://localhost:8080/v1/submissions', {
+    const response = await fetch(`${API_BASE_URL}/v1/submissions`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify(data),
@@ -257,7 +257,7 @@ export const submissionApi = {
   },
 
   getUserSubmissionsForChallenge: async (userId: string, challengeId: string): Promise<SubmissionResponse[]> => {
-    const response = await fetch(`http://localhost:8080/v1/users/${userId}/challenges/${challengeId}/submissions`, {
+    const response = await fetch(`${API_BASE_URL}/v1/users/${userId}/challenges/${challengeId}/submissions`, {
       method: 'GET',
       headers: getAuthHeaders(),
     });
@@ -286,7 +286,7 @@ export interface UserStatistics {
 
 export const userApi = {
   getUserChallenges: async (userId: string, page: number = 0, pageSize: number = 15): Promise<PageResponse<Challenge>> => {
-    const response = await fetch(`http://localhost:8080/v1/users/${userId}/challenges?page=${page}&pageSize=${pageSize}`, {
+    const response = await fetch(`${API_BASE_URL}/v1/users/${userId}/challenges?page=${page}&pageSize=${pageSize}`, {
       method: 'GET',
       headers: getAuthHeaders(),
     });
@@ -306,7 +306,7 @@ export const userApi = {
   },
 
   getUserStatistics: async (userId: string): Promise<UserStatistics> => {
-    const response = await fetch(`http://localhost:8080/v1/users/${userId}/statistics`, {
+    const response = await fetch(`${API_BASE_URL}/v1/users/${userId}/statistics`, {
       method: 'GET',
       headers: getAuthHeaders(),
     });
