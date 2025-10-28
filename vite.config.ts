@@ -8,5 +8,6 @@ export default defineConfig({
     port: Number(process.env.PORT) || 4173,
     host: '0.0.0.0',
     strictPort: true,
+    allowedHosts: ['lab-pattern-frontend-production.up.railway.app'],
   },
 })
