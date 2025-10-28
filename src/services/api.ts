@@ -31,7 +31,7 @@ export type Challenge = {
 
 export const authApi = {
   signup: async (data: SignUpRequest): Promise<AuthenticationResponse> => {
-    const response = await fetch(`${API_BASE_URL}/auth/signup`, {
+    const response = await fetch(`${API_BASE_URL}/api/auth/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ export const authApi = {
   },
 
   login: async (data: LoginRequest): Promise<AuthenticationResponse> => {
-    const response = await fetch(`${API_BASE_URL}/auth/login`, {
+    const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
