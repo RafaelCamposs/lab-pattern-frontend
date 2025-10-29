@@ -15,7 +15,7 @@ export default function DashboardLayout() {
     <div className="dashboard-layout">
       <aside className="sidebar">
         <div className="sidebar-header">
-          <h2>Lab Pattern</h2>
+          <h2>PatternLab</h2>
           <p className="user-email">{user?.email}</p>
         </div>
         <nav className="sidebar-nav">
@@ -24,21 +24,21 @@ export default function DashboardLayout() {
               <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
               <polyline points="9 22 9 12 15 12 15 22"></polyline>
             </svg>
-            Home
+            Início
           </NavLink>
           <NavLink to="/practice" className={({ isActive }) => isActive ? 'active' : ''}>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
               <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
             </svg>
-            Practice
+            Praticar
           </NavLink>
           <NavLink to="/daily-challenge" className={({ isActive }) => isActive ? 'active' : ''}>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="12" cy="12" r="10"></circle>
               <polyline points="12 6 12 12 16 14"></polyline>
             </svg>
-            Daily Challenge
+            Desafio Diário
           </NavLink>
           <NavLink to="/challenges" className={({ isActive }) => isActive ? 'active' : ''}>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -48,7 +48,7 @@ export default function DashboardLayout() {
               <line x1="16" y1="17" x2="8" y2="17"></line>
               <polyline points="10 9 9 9 8 9"></polyline>
             </svg>
-            Challenges
+            Desafios
           </NavLink>
         </nav>
         <button className="logout-btn" onClick={handleLogout}>
@@ -57,7 +57,7 @@ export default function DashboardLayout() {
             <polyline points="16 17 21 12 16 7"></polyline>
             <line x1="21" y1="12" x2="9" y2="12"></line>
           </svg>
-          Logout
+          Sair
         </button>
       </aside>
       <main className="main-content">

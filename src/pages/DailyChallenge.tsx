@@ -11,7 +11,7 @@ import SubmissionModal from '../components/SubmissionModal';
 import LoadingModal from '../components/LoadingModal';
 import './Practice.css';
 
-const today = new Date().toLocaleDateString('en-US', {
+const today = new Date().toLocaleDateString('pt-BR', {
   weekday: 'long',
   year: 'numeric',
   month: 'long',
@@ -83,7 +83,7 @@ export default function DailyChallenge() {
         }
       } catch (error) {
         console.error('Failed to fetch data:', error);
-        alert('Failed to load daily challenge. Please try logging in again.');
+        alert('Falha ao carregar desafio diário. Por favor, tente fazer login novamente.');
       } finally {
         setLoading(false);
       }
@@ -117,19 +117,19 @@ export default function DailyChallenge() {
 
   const handleSubmit = async () => {
     if (!dailyChallenge) {
-      alert('No daily challenge available.');
+      alert('Nenhum desafio diário disponível.');
       return;
     }
 
     const userId = getUserIdFromToken();
     if (!userId) {
-      alert('User not authenticated. Please log in again.');
+      alert('Usuário não autenticado. Por favor, faça login novamente.');
       return;
     }
 
     const pattern = patterns.find(p => p.name === selectedPatternName);
     if (!pattern) {
-      alert('Pattern not found.');
+      alert('Padrão não encontrado.');
       return;
     }
 
@@ -151,12 +151,12 @@ export default function DailyChallenge() {
     } catch (error) {
       console.error('Failed to submit solution:', error);
       setIsSubmitting(false);
-      alert('Failed to submit solution. Please try again.');
+      alert('Falha ao enviar solução. Por favor, tente novamente.');
     }
   };
 
   if (loading || !currentPattern || !dailyChallenge) {
-    return <div>Loading...</div>;
+    return <div>Carregando...</div>;
   }
 
   return (
@@ -178,7 +178,7 @@ export default function DailyChallenge() {
                   <circle cx="12" cy="12" r="10"></circle>
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
-                <span>Daily Challenge</span>
+                <span>Desafio Diário</span>
               </div>
             </div>
             <p style={{ margin: '0.5rem 0', color: 'var(--text-medium)', fontSize: '0.875rem' }}>
@@ -186,7 +186,7 @@ export default function DailyChallenge() {
             </p>
           </div>
           <section>
-            <h3>Description</h3>
+            <h3>Descrição</h3>
             <p style={{ whiteSpace: 'pre-line' }}>{dailyChallenge.description}</p>
           </section>
         </div>
@@ -200,7 +200,7 @@ export default function DailyChallenge() {
               className="pattern-select-compact"
               value={selectedPatternName}
               onChange={(e) => handlePatternChange(e.target.value)}
-              title="Select Pattern"
+              title="Selecionar Padrão"
             >
               {patterns.map(p => (
                 <option key={p.id} value={p.name}>{p.name}</option>
@@ -212,7 +212,7 @@ export default function DailyChallenge() {
               className="language-select"
               value={language}
               onChange={(e) => handleLanguageChange(e.target.value as Language)}
-              title="Select Language"
+              title="Selecionar Linguagem"
             >
               {Object.entries(languageNames).map(([key, name]) => (
                 <option key={key} value={key}>{name}</option>
@@ -236,7 +236,7 @@ export default function DailyChallenge() {
                         }
                       } catch (error) {
                         console.error('Failed to fetch submission:', error);
-                        alert('Failed to load submission results. Please try again.');
+                        alert('Falha ao carregar resultados da submissão. Por favor, tente novamente.');
                         return;
                       }
                     }
@@ -244,7 +244,7 @@ export default function DailyChallenge() {
                   setIsModalOpen(true);
                 }}
               >
-                View Results
+                Ver Resultados
               </button>
             ) : (
               <button
@@ -252,7 +252,7 @@ export default function DailyChallenge() {
                 onClick={handleSubmit}
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Submitting...' : 'Submit'}
+                {isSubmitting ? 'Enviando...' : 'Enviar'}
               </button>
             )}
           </div>

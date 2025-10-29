@@ -145,7 +145,7 @@ export default function Practice() {
 
   const handleGenerateChallenge = async () => {
     if (!hasSubmitted && challenge) {
-      alert('Please submit your current challenge before generating a new one.');
+      alert('Por favor, envie seu desafio atual antes de gerar um novo.');
       return;
     }
 
@@ -162,7 +162,7 @@ export default function Practice() {
       }
     } catch (error) {
       console.error('Failed to generate challenge:', error);
-      alert('Failed to generate challenge. Please try again.');
+      alert('Falha ao gerar desafio. Por favor, tente novamente.');
     } finally {
       setGeneratingChallenge(false);
     }
@@ -170,19 +170,19 @@ export default function Practice() {
 
   const handleSubmit = async () => {
     if (!challenge) {
-      alert('No active challenge to submit.');
+      alert('Nenhum desafio ativo para enviar.');
       return;
     }
 
     const userId = getUserIdFromToken();
     if (!userId) {
-      alert('User not authenticated. Please log in again.');
+      alert('Usuário não autenticado. Por favor, faça login novamente.');
       return;
     }
 
     const pattern = patterns.find(p => p.name === selectedPatternName);
     if (!pattern) {
-      alert('Pattern not found.');
+      alert('Padrão não encontrado.');
       return;
     }
 
@@ -207,12 +207,12 @@ export default function Practice() {
     } catch (error) {
       console.error('Failed to submit solution:', error);
       setIsSubmitting(false);
-      alert('Failed to submit solution. Please try again.');
+      alert('Falha ao enviar solução. Por favor, tente novamente.');
     }
   };
 
   if (loading || !currentPattern) {
-    return <div>Loading...</div>;
+    return <div>Carregando...</div>;
   }
 
   return (
@@ -233,14 +233,14 @@ export default function Practice() {
                   <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
                 </svg>
               </div>
-              <h2>Ready to Practice?</h2>
-              <p>Generate a new challenge to start practicing design patterns and improve your coding skills.</p>
+              <h2>Pronto para Praticar?</h2>
+              <p>Gere um novo desafio para começar a praticar padrões de projeto e melhorar suas habilidades de programação.</p>
               <button
                 className="btn-primary btn-large"
                 onClick={handleGenerateChallenge}
                 disabled={generatingChallenge}
               >
-                {generatingChallenge ? 'Generating...' : 'Generate New Challenge'}
+                {generatingChallenge ? 'Gerando...' : 'Gerar Novo Desafio'}
               </button>
             </div>
           ) : (
@@ -249,7 +249,7 @@ export default function Practice() {
                 <h1>{challenge.title}</h1>
               </div>
               <section>
-                <h3>Description</h3>
+                <h3>Descrição</h3>
                 <p style={{ whiteSpace: 'pre-line' }}>
                   {challenge.description}
                 </p>
@@ -267,7 +267,7 @@ export default function Practice() {
               className="pattern-select-compact"
               value={selectedPatternName}
               onChange={(e) => handlePatternChange(e.target.value)}
-              title="Select Pattern"
+              title="Selecionar Padrão"
             >
               {patterns.map(p => (
                 <option key={p.id} value={p.name}>{p.name}</option>
@@ -279,7 +279,7 @@ export default function Practice() {
               className="language-select"
               value={language}
               onChange={(e) => handleLanguageChange(e.target.value as Language)}
-              title="Select Language"
+              title="Selecionar Linguagem"
             >
               {Object.entries(languageNames).map(([key, name]) => (
                 <option key={key} value={key}>{name}</option>
@@ -297,7 +297,7 @@ export default function Practice() {
                       onClick={handleGenerateChallenge}
                       disabled={generatingChallenge}
                     >
-                      {generatingChallenge ? 'Generating...' : 'New Challenge'}
+                      {generatingChallenge ? 'Gerando...' : 'Novo Desafio'}
                     </button>
                     <button
                       className="btn-primary"
@@ -313,7 +313,7 @@ export default function Practice() {
                               }
                             } catch (error) {
                               console.error('Failed to fetch submission:', error);
-                              alert('Failed to load submission results. Please try again.');
+                              alert('Falha ao carregar resultados da submissão. Por favor, tente novamente.');
                               return;
                             }
                           }
@@ -321,7 +321,7 @@ export default function Practice() {
                         setIsModalOpen(true);
                       }}
                     >
-                      View Results
+                      Ver Resultados
                     </button>
                   </>
                 ) : (
@@ -330,7 +330,7 @@ export default function Practice() {
                     onClick={handleSubmit}
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Submitting...' : 'Submit'}
+                    {isSubmitting ? 'Enviando...' : 'Enviar'}
                   </button>
                 )}
               </>

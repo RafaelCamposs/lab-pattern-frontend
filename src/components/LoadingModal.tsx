@@ -11,8 +11,8 @@ export default function LoadingModal({ isOpen }: LoadingModalProps) {
     <div className="modal-overlay">
       <div className="loading-modal-content">
         <div className="loading-spinner"></div>
-        <h2>Processing Submission</h2>
-        <p>Please wait while we evaluate your solution...</p>
+        <h2>Processando Submissão</h2>
+        <p>Por favor, aguarde enquanto avaliamos sua solução...</p>
       </div>
     </div>
   );

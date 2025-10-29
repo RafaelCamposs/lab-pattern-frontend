@@ -19,7 +19,7 @@ export default function Challenges() {
   const fetchChallenges = async (page: number) => {
     const userId = getUserIdFromToken();
     if (!userId) {
-      alert('User not authenticated. Please log in again.');
+      alert('Usuário não autenticado. Por favor, faça login novamente.');
       return;
     }
 
@@ -30,7 +30,7 @@ export default function Challenges() {
       setTotalPages(response.totalPages);
     } catch (error) {
       console.error('Failed to fetch challenges:', error);
-      alert('Failed to load challenges. Please try again.');
+      alert('Falha ao carregar desafios. Por favor, tente novamente.');
     } finally {
       setLoading(false);
     }
@@ -39,7 +39,7 @@ export default function Challenges() {
   const handleChallengeClick = async (challengeId: string) => {
     const userId = getUserIdFromToken();
     if (!userId) {
-      alert('User not authenticated. Please log in again.');
+      alert('Usuário não autenticado. Por favor, faça login novamente.');
       return;
     }
 
@@ -50,11 +50,11 @@ export default function Challenges() {
         setSubmissionResult(submissions[submissions.length - 1]);
         setIsModalOpen(true);
       } else {
-        alert('No submission found for this challenge.');
+        alert('Nenhuma submissão encontrada para este desafio.');
       }
     } catch (error) {
       console.error('Failed to fetch submission:', error);
-      alert('Failed to load submission. Please try again.');
+      alert('Falha ao carregar submissão. Por favor, tente novamente.');
     } finally {
       setLoadingSubmission(false);
     }
@@ -67,7 +67,7 @@ export default function Challenges() {
   };
 
   if (loading && challenges.length === 0) {
-    return <div className="challenges-loading">Loading challenges...</div>;
+    return <div className="challenges-loading">Carregando desafios...</div>;
   }
 
   return (
@@ -79,13 +79,13 @@ export default function Challenges() {
       />
       <div className="challenges-container">
         <div className="challenges-header">
-          <h1>My Challenges</h1>
-          <p>View all challenges you've completed</p>
+          <h1>Meus Desafios</h1>
+          <p>Veja todos os desafios que você completou</p>
         </div>
 
         {challenges.length === 0 ? (
           <div className="empty-challenges">
-            <p>No challenges completed yet. Start practicing to see your progress here!</p>
+            <p>Nenhum desafio completado ainda. Comece a praticar para ver seu progresso aqui!</p>
           </div>
         ) : (
           <>
@@ -93,9 +93,9 @@ export default function Challenges() {
               <table className="challenges-table">
                 <thead>
                   <tr>
-                    <th>Title</th>
-                    <th>Type</th>
-                    <th>Published Date</th>
+                    <th>Título</th>
+                    <th>Tipo</th>
+                    <th>Data de Publicação</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -108,12 +108,12 @@ export default function Challenges() {
                       <td>{challenge.title}</td>
                       <td>
                         {challenge.isDaily ? (
-                          <span className="badge badge-daily">Daily</span>
+                          <span className="badge badge-daily">Diário</span>
                         ) : (
-                          <span className="badge badge-practice">Practice</span>
+                          <span className="badge badge-practice">Prática</span>
                         )}
                       </td>
-                      <td>{new Date(challenge.publishedAt).toLocaleDateString()}</td>
+                      <td>{new Date(challenge.publishedAt).toLocaleDateString('pt-BR')}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -127,17 +127,17 @@ export default function Challenges() {
                   disabled={currentPage === 0 || loading}
                   className="pagination-btn"
                 >
-                  Previous
+                  Anterior
                 </button>
                 <span className="pagination-info">
-                  Page {currentPage + 1} of {totalPages}
+                  Página {currentPage + 1} de {totalPages}
                 </span>
                 <button
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage >= totalPages - 1 || loading}
                   className="pagination-btn"
                 >
-                  Next
+                  Próxima
                 </button>
               </div>
             )}

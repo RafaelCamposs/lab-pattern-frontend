@@ -29,7 +29,10 @@ export default function Login() {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h1>Login</h1>
+        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+          <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>PatternLab</h1>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 'normal' }}>Login</h2>
+        </div>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="email">Email</label>
@@ -39,27 +42,27 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              placeholder="Enter your email"
+              placeholder="Digite seu email"
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Senha</label>
             <input
               type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              placeholder="Enter your password"
+              placeholder="Digite sua senha"
             />
           </div>
           {error && <div style={{ color: '#ef4444', fontSize: '0.875rem', marginBottom: '1rem' }}>{error}</div>}
           <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? 'Logging in...' : 'Login'}
+            {loading ? 'Entrando...' : 'Entrar'}
           </button>
         </form>
         <p className="auth-link">
-          Don't have an account? <a href="/signup">Sign up</a>
+          Não tem uma conta? <a href="/signup">Cadastre-se</a>
         </p>
       </div>
     </div>

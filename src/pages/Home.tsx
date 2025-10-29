@@ -74,8 +74,8 @@ export default function Home() {
   if (loading) {
     return (
       <div className="page-container">
-        <h1>Welcome to Lab Pattern</h1>
-        <p className="loading-text">Loading your statistics...</p>
+        <h1>Bem-vindo ao PatternLab</h1>
+        <p className="loading-text">Carregando suas estatísticas...</p>
       </div>
     );
   }
@@ -83,7 +83,7 @@ export default function Home() {
   if (error) {
     return (
       <div className="page-container">
-        <h1>Welcome to Lab Pattern</h1>
+        <h1>Bem-vindo ao PatternLab</h1>
         <p className="error-text">{error}</p>
       </div>
     );
@@ -91,8 +91,8 @@ export default function Home() {
 
   return (
     <div className="page-container">
-      <h1>Welcome to Lab Pattern</h1>
-      <p className="page-description">Track your progress and improve your design pattern skills</p>
+      <h1>Bem-vindo ao PatternLab</h1>
+      <p className="page-description">Acompanhe seu progresso e melhore suas habilidades em padrões de projeto</p>
 
       {/* Statistics Cards */}
       <div className="stats-grid">
@@ -105,7 +105,7 @@ export default function Home() {
           </div>
           <div className="stat-content">
             <span className="stat-number">{statistics?.completedChallenges || 0}</span>
-            <span className="stat-label">Challenges Completed</span>
+            <span className="stat-label">Desafios Concluídos</span>
           </div>
         </div>
 
@@ -119,7 +119,7 @@ export default function Home() {
           </div>
           <div className="stat-content">
             <span className="stat-number">{statistics?.percentage || 0}%</span>
-            <span className="stat-label">Success Rate</span>
+            <span className="stat-label">Taxa de Sucesso</span>
           </div>
         </div>
 
@@ -131,7 +131,7 @@ export default function Home() {
           </div>
           <div className="stat-content">
             <span className="stat-number">{statistics?.currentStreak || 0}</span>
-            <span className="stat-label">Current Streak</span>
+            <span className="stat-label">Sequência Atual</span>
           </div>
         </div>
 
@@ -148,14 +148,14 @@ export default function Home() {
           </div>
           <div className="stat-content">
             <span className="stat-number">{statistics?.longestStreak || 0}</span>
-            <span className="stat-label">Longest Streak</span>
+            <span className="stat-label">Maior Sequência</span>
           </div>
         </div>
       </div>
 
       {/* Chart Section */}
       <div className="chart-section">
-        <h2>Activity Overview - Last 30 Days</h2>
+        <h2>Visão Geral de Atividades - Últimos 30 Dias</h2>
         {dailyActivity.length > 0 ? (
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={dailyActivity}>
@@ -183,13 +183,13 @@ export default function Home() {
                 dataKey="challenges"
                 fill="#667eea"
                 radius={[8, 8, 0, 0]}
-                name="Challenges"
+                name="Desafios"
               />
             </BarChart>
           </ResponsiveContainer>
         ) : (
           <div className="chart-placeholder">
-            <p>No activity data available</p>
+            <p>Nenhum dado de atividade disponível</p>
           </div>
         )}
       </div>

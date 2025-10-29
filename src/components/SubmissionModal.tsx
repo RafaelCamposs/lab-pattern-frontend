@@ -22,8 +22,8 @@ export default function SubmissionModal({ isOpen, onClose, submission }: Submiss
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h2>Submission Result</h2>
-          <button className="modal-close" onClick={onClose} aria-label="Close modal">
+          <h2>Resultado da Submissão</h2>
+          <button className="modal-close" onClick={onClose} aria-label="Fechar modal">
             &times;
           </button>
         </div>
@@ -31,7 +31,7 @@ export default function SubmissionModal({ isOpen, onClose, submission }: Submiss
         <div className="modal-body">
           {/* Submitted Code Section */}
           <div className="code-section">
-            <h3>Your Code</h3>
+            <h3>Seu Código</h3>
             <div className="code-display">
               <div className="code-header">
                 <span className="language-badge">{submission.language}</span>
@@ -44,9 +44,9 @@ export default function SubmissionModal({ isOpen, onClose, submission }: Submiss
 
           {hasEvaluation ? (
             <div className="evaluation-section">
-              <h3>Evaluation</h3>
+              <h3>Avaliação</h3>
               <div className="score-container">
-                <span className="score-label">Score:</span>
+                <span className="score-label">Pontuação:</span>
                 <span className={`score-value ${score && score >= 70 ? 'score-good' : 'score-low'}`}>
                   {score}%
                 </span>
@@ -57,7 +57,7 @@ export default function SubmissionModal({ isOpen, onClose, submission }: Submiss
 
                   {hasKeyPoints && (
                     <div className="feedback-section">
-                      <h5>Key Points</h5>
+                      <h5>Pontos-Chave</h5>
                       <ul className="feedback-list">
                         {feedback.keyPoints.map((point, index) => (
                           <li key={index}>{point}</li>
@@ -68,7 +68,7 @@ export default function SubmissionModal({ isOpen, onClose, submission }: Submiss
 
                   {hasStrengths && (
                     <div className="feedback-section strengths">
-                      <h5>Strengths</h5>
+                      <h5>Pontos Fortes</h5>
                       <ul className="feedback-list">
                         {feedback.strengths.map((strength, index) => (
                           <li key={index}>{strength}</li>
@@ -79,7 +79,7 @@ export default function SubmissionModal({ isOpen, onClose, submission }: Submiss
 
                   {hasImprovements && (
                     <div className="feedback-section improvements">
-                      <h5>Areas for Improvement</h5>
+                      <h5>Áreas para Melhoria</h5>
                       <ul className="feedback-list">
                         {feedback.improvements.map((improvement, index) => (
                           <li key={index}>{improvement}</li>
@@ -92,14 +92,14 @@ export default function SubmissionModal({ isOpen, onClose, submission }: Submiss
             </div>
           ) : (
             <div className="evaluation-section">
-              <p className="pending-message">Evaluation is pending...</p>
+              <p className="pending-message">Avaliação pendente...</p>
             </div>
           )}
         </div>
 
         <div className="modal-footer">
           <button className="btn-primary" onClick={onClose}>
-            Close
+            Fechar
           </button>
         </div>
       </div>

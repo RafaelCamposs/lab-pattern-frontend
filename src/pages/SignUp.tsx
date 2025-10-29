@@ -18,7 +18,7 @@ export default function SignUp() {
     setError('');
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError('As senhas não coincidem');
       return;
     }
 
@@ -37,17 +37,20 @@ export default function SignUp() {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h1>Sign Up</h1>
+        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+          <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>PatternLab</h1>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 'normal' }}>Cadastro</h2>
+        </div>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username">Nome de usuário</label>
             <input
               type="text"
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
-              placeholder="Choose a username"
+              placeholder="Escolha um nome de usuário"
             />
           </div>
           <div className="form-group">
@@ -58,38 +61,38 @@ export default function SignUp() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              placeholder="Enter your email"
+              placeholder="Digite seu email"
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Senha</label>
             <input
               type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              placeholder="Create a password"
+              placeholder="Crie uma senha"
             />
           </div>
           <div className="form-group">
-            <label htmlFor="confirmPassword">Confirm Password</label>
+            <label htmlFor="confirmPassword">Confirmar senha</label>
             <input
               type="password"
               id="confirmPassword"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
-              placeholder="Confirm your password"
+              placeholder="Confirme sua senha"
             />
           </div>
           {error && <div style={{ color: '#ef4444', fontSize: '0.875rem', marginBottom: '1rem' }}>{error}</div>}
           <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? 'Creating account...' : 'Sign Up'}
+            {loading ? 'Criando conta...' : 'Cadastrar'}
           </button>
         </form>
         <p className="auth-link">
-          Already have an account? <a href="/login">Login</a>
+          Já tem uma conta? <a href="/login">Entrar</a>
         </p>
       </div>
     </div>
