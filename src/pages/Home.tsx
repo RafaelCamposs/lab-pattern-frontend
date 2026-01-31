@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { userApi, getUserIdFromToken, type UserStatistics, type Challenge } from '../services/api';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { SkeletonLoader } from '../components/SkeletonLoader';
 import './Dashboard.css';
 
 interface DailyActivity {
@@ -22,22 +23,18 @@ export default function Home() {
         const userId = getUserIdFromToken();
 
         if (!userId) {
-          throw new Error('User ID not found');
+          throw new Error('ID do usuário não encontrado');
         }
 
-        // Fetch statistics
         const stats = await userApi.getUserStatistics(userId);
         setStatistics(stats);
 
-        // Fetch user challenges (last 100 items to get recent activity)
         const challengesResponse = await userApi.getUserChallenges(userId, 0, 100);
-
-        // Process challenges to create daily activity data for last 30 days
         const activityData = processLast30Days(challengesResponse.content);
         setDailyActivity(activityData);
       } catch (err) {
         console.error('Failed to fetch data:', err);
-        setError(err instanceof Error ? err.message : 'Failed to fetch data');
+        setError(err instanceof Error ? err.message : 'Falha ao carregar dados');
       } finally {
         setLoading(false);
       }
@@ -50,13 +47,11 @@ export default function Home() {
     const last30Days: DailyActivity[] = [];
     const today = new Date();
 
-    // Create array for last 30 days
     for (let i = 29; i >= 0; i--) {
       const date = new Date(today);
       date.setDate(date.getDate() - i);
       const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
-      // Count challenges published on this day
       const count = challenges.filter(challenge => {
         const publishedDate = new Date(challenge.publishedAt);
         return publishedDate.toDateString() === date.toDateString();
@@ -75,7 +70,20 @@ export default function Home() {
     return (
       <div className="page-container">
         <h1>Bem-vindo ao PatternLab</h1>
-        <p className="loading-text">Carregando suas estatísticas...</p>
+        <p className="page-description">Acompanhe seu progresso e melhore suas habilidades em padrões de projeto</p>
+
+        {/* Statistics Cards Skeleton */}
+        <div className="stats-grid">
+          <SkeletonLoader variant="stat-card" count={4} />
+        </div>
+
+        {/* Chart Section Skeleton */}
+        <div className="chart-section">
+          <div className="skeleton-loading-header">
+            <div className="skeleton skeleton-text" style={{ width: '40%', height: '1.5rem', marginBottom: '1rem' }}></div>
+          </div>
+          <SkeletonLoader variant="card" height="300px" />
+        </div>
       </div>
     );
   }

@@ -41,7 +41,7 @@ export const authApi = {
 
     if (!response.ok) {
       const error = await response.text();
-      throw new Error(error || 'Signup failed');
+      throw new Error(error || 'Falha ao criar conta');
     }
 
     return response.json();
@@ -58,7 +58,7 @@ export const authApi = {
 
     if (!response.ok) {
       const error = await response.text();
-      throw new Error(error || 'Login failed');
+      throw new Error(error || 'Falha ao fazer login');
     }
 
     return response.json();
@@ -73,13 +73,11 @@ const getAuthHeaders = (): HeadersInit => {
   };
 };
 
-// Helper function to decode JWT token and extract userId
 export const getUserIdFromToken = (): string | null => {
   const token = localStorage.getItem('token');
   if (!token) return null;
 
   try {
-    // JWT tokens have 3 parts separated by dots: header.payload.signature
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     const jsonPayload = decodeURIComponent(
@@ -90,7 +88,6 @@ export const getUserIdFromToken = (): string | null => {
     );
 
     const payload = JSON.parse(jsonPayload);
-    // Prioritize userId claim over sub
     return payload.userId || payload.sub || null;
   } catch (error) {
     console.error('Failed to decode JWT token:', error);
@@ -98,7 +95,6 @@ export const getUserIdFromToken = (): string | null => {
   }
 };
 
-// Helper function to check if token is expired
 export const isTokenExpired = (): boolean => {
   const token = localStorage.getItem('token');
   if (!token) return true;
@@ -116,7 +112,6 @@ export const isTokenExpired = (): boolean => {
     const payload = JSON.parse(jsonPayload);
     if (!payload.exp) return true;
 
-    // exp is in seconds, Date.now() is in milliseconds
     const expirationTime = payload.exp * 1000;
     const currentTime = Date.now();
 
@@ -127,7 +122,6 @@ export const isTokenExpired = (): boolean => {
   }
 };
 
-// Event listener for token expiration
 let tokenExpirationCallback: (() => void) | null = null;
 
 export const setTokenExpirationCallback = (callback: () => void) => {
@@ -149,7 +143,7 @@ export const patternApi = {
 
     if (!response.ok) {
       const error = await response.text();
-      throw new Error(error || 'Failed to fetch patterns');
+      throw new Error(error || 'Falha ao buscar padrões');
     }
 
     return response.json();
@@ -164,14 +158,12 @@ export const challengeApi = {
     });
 
     if (!response.ok) {
-      // Handle 403 Forbidden - likely token expiration
       if (response.status === 403) {
-        console.error('403 Forbidden: Token may be expired');
         handleTokenExpiration();
-        throw new Error('Your session has expired. Please log in again.');
+        throw new Error('Sua sessão expirou. Por favor, faça login novamente.');
       }
       const error = await response.text();
-      throw new Error(error || 'Failed to generate challenge');
+      throw new Error(error || 'Falha ao gerar desafio');
     }
 
     return response.json();
@@ -184,14 +176,12 @@ export const challengeApi = {
     });
 
     if (!response.ok) {
-      // Handle 403 Forbidden - likely token expiration
       if (response.status === 403) {
-        console.error('403 Forbidden: Token may be expired');
         handleTokenExpiration();
-        throw new Error('Your session has expired. Please log in again.');
+        throw new Error('Sua sessão expirou. Por favor, faça login novamente.');
       }
       const error = await response.text();
-      throw new Error(error || 'Failed to fetch daily challenge');
+      throw new Error(error || 'Falha ao buscar desafio diário');
     }
 
     return response.json();
@@ -243,14 +233,12 @@ export const submissionApi = {
     });
 
     if (!response.ok) {
-      // Handle 403 Forbidden - likely token expiration
       if (response.status === 403) {
-        console.error('403 Forbidden: Token may be expired');
         handleTokenExpiration();
-        throw new Error('Your session has expired. Please log in again.');
+        throw new Error('Sua sessão expirou. Por favor, faça login novamente.');
       }
       const error = await response.text();
-      throw new Error(error || 'Failed to submit solution');
+      throw new Error(error || 'Falha ao enviar solução');
     }
 
     return response.json();
@@ -263,14 +251,12 @@ export const submissionApi = {
     });
 
     if (!response.ok) {
-      // Handle 403 Forbidden - likely token expiration
       if (response.status === 403) {
-        console.error('403 Forbidden: Token may be expired');
         handleTokenExpiration();
-        throw new Error('Your session has expired. Please log in again.');
+        throw new Error('Sua sessão expirou. Por favor, faça login novamente.');
       }
       const error = await response.text();
-      throw new Error(error || 'Failed to fetch submissions');
+      throw new Error(error || 'Falha ao buscar submissões');
     }
 
     return response.json();
@@ -292,14 +278,12 @@ export const userApi = {
     });
 
     if (!response.ok) {
-      // Handle 403 Forbidden - likely token expiration
       if (response.status === 403) {
-        console.error('403 Forbidden: Token may be expired');
         handleTokenExpiration();
-        throw new Error('Your session has expired. Please log in again.');
+        throw new Error('Sua sessão expirou. Por favor, faça login novamente.');
       }
       const error = await response.text();
-      throw new Error(error || 'Failed to fetch user challenges');
+      throw new Error(error || 'Falha ao buscar desafios do usuário');
     }
 
     return response.json();
@@ -312,14 +296,12 @@ export const userApi = {
     });
 
     if (!response.ok) {
-      // Handle 403 Forbidden - likely token expiration
       if (response.status === 403) {
-        console.error('403 Forbidden: Token may be expired');
         handleTokenExpiration();
-        throw new Error('Your session has expired. Please log in again.');
+        throw new Error('Sua sessão expirou. Por favor, faça login novamente.');
       }
       const error = await response.text();
-      throw new Error(error || 'Failed to fetch user statistics');
+      throw new Error(error || 'Falha ao buscar estatísticas do usuário');
     }
 
     return response.json();

@@ -9,6 +9,7 @@ import { getPatternByName } from '../data/designPatterns';
 import { patternApi, challengeApi, submissionApi, getUserIdFromToken, type Pattern, type Challenge, type SubmissionResponse } from '../services/api';
 import SubmissionModal from '../components/SubmissionModal';
 import LoadingModal from '../components/LoadingModal';
+import { SkeletonLoader } from '../components/SkeletonLoader';
 import './Practice.css';
 
 type Language = 'javascript' | 'python' | 'java' | 'cpp' | 'typescript';
@@ -212,7 +213,33 @@ export default function Practice() {
   };
 
   if (loading || !currentPattern) {
-    return <div>Carregando...</div>;
+    return (
+      <div className="practice-container">
+        <div className="problem-panel">
+          <div className="problem-content">
+            <div className="skeleton-loading-header">
+              <div className="skeleton skeleton-text" style={{ width: '50%', height: '2rem', marginBottom: '1.5rem' }}></div>
+            </div>
+            <section>
+              <div className="skeleton skeleton-text" style={{ width: '20%', height: '1.25rem', marginBottom: '1rem' }}></div>
+              <div className="skeleton skeleton-text" style={{ width: '100%', height: '1rem', marginBottom: '0.5rem' }}></div>
+              <div className="skeleton skeleton-text" style={{ width: '95%', height: '1rem', marginBottom: '0.5rem' }}></div>
+              <div className="skeleton skeleton-text" style={{ width: '90%', height: '1rem' }}></div>
+            </section>
+          </div>
+        </div>
+
+        <div className="code-panel">
+          <div className="code-header">
+            <div className="skeleton skeleton-text" style={{ width: '150px', height: '2.5rem' }}></div>
+            <div className="skeleton skeleton-text" style={{ width: '100px', height: '2.5rem' }}></div>
+          </div>
+          <div className="code-editor">
+            <SkeletonLoader variant="card" height="calc(100vh - 140px)" />
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (

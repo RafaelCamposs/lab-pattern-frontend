@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { userApi, submissionApi, getUserIdFromToken, type Challenge, type PageResponse, type SubmissionResponse } from '../services/api';
 import SubmissionModal from '../components/SubmissionModal';
+import { SkeletonLoader } from '../components/SkeletonLoader';
 import './Challenges.css';
 
 export default function Challenges() {
@@ -67,7 +68,18 @@ export default function Challenges() {
   };
 
   if (loading && challenges.length === 0) {
-    return <div className="challenges-loading">Carregando desafios...</div>;
+    return (
+      <div className="challenges-container">
+        <div className="challenges-header">
+          <h1>Meus Desafios</h1>
+          <p>Veja todos os desafios que você completou</p>
+        </div>
+
+        <div className="challenges-table-container">
+          <SkeletonLoader variant="challenge-card" count={5} />
+        </div>
+      </div>
+    );
   }
 
   return (

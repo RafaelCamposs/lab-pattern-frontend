@@ -1,6 +1,8 @@
 import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { ErrorAlert } from '../components/ErrorAlert';
+import { formatAuthError, logErrorDetails } from '../utils/errorMessages';
 import './Auth.css';
 
 export default function Login() {
@@ -20,7 +22,8 @@ export default function Login() {
       await login(email, password);
       navigate('/');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed');
+      logErrorDetails('Login', err);
+      setError(formatAuthError(err));
     } finally {
       setLoading(false);
     }
@@ -56,7 +59,7 @@ export default function Login() {
               placeholder="Digite sua senha"
             />
           </div>
-          {error && <div style={{ color: '#ef4444', fontSize: '0.875rem', marginBottom: '1rem' }}>{error}</div>}
+          <ErrorAlert message={error} onClose={() => setError('')} />
           <button type="submit" className="btn-primary" disabled={loading}>
             {loading ? 'Entrando...' : 'Entrar'}
           </button>

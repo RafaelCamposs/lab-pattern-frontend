@@ -1,6 +1,8 @@
 import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { ErrorAlert } from '../components/ErrorAlert';
+import { formatAuthError, logErrorDetails } from '../utils/errorMessages';
 import './Auth.css';
 
 export default function SignUp() {
@@ -18,7 +20,12 @@ export default function SignUp() {
     setError('');
 
     if (password !== confirmPassword) {
-      setError('As senhas não coincidem');
+      setError('As senhas não coincidem. Verifique e tente novamente');
+      return;
+    }
+
+    if (password.length < 6) {
+      setError('A senha deve ter no mínimo 6 caracteres');
       return;
     }
 
@@ -28,7 +35,8 @@ export default function SignUp() {
       await signup(username, email, password);
       navigate('/');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Signup failed');
+      logErrorDetails('SignUp', err);
+      setError(formatAuthError(err));
     } finally {
       setLoading(false);
     }
@@ -86,7 +94,7 @@ export default function SignUp() {
               placeholder="Confirme sua senha"
             />
           </div>
-          {error && <div style={{ color: '#ef4444', fontSize: '0.875rem', marginBottom: '1rem' }}>{error}</div>}
+          <ErrorAlert message={error} onClose={() => setError('')} />
           <button type="submit" className="btn-primary" disabled={loading}>
             {loading ? 'Criando conta...' : 'Cadastrar'}
           </button>

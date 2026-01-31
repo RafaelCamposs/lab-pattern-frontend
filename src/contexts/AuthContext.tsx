@@ -9,7 +9,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (storedUser && storedToken && !isTokenExpired()) {
       return { email: storedUser, token: storedToken };
     }
-    // Clear expired token
     if (storedUser && storedToken && isTokenExpired()) {
       localStorage.removeItem('user');
       localStorage.removeItem('token');
@@ -24,27 +23,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem('practice-challenge-state');
   };
 
-  // Set up token expiration callback
   useEffect(() => {
     setTokenExpirationCallback(() => {
-      alert('Your session has expired. Please log in again.');
+      alert('Sua sessão expirou. Por favor, faça login novamente.');
       logout();
       window.location.href = '/login';
     });
 
-    // Check token expiration on mount and periodically
     const checkTokenExpiration = () => {
       if (user && isTokenExpired()) {
-        alert('Your session has expired. Please log in again.');
+        alert('Sua sessão expirou. Por favor, faça login novamente.');
         logout();
         window.location.href = '/login';
       }
     };
 
-    // Check immediately
     checkTokenExpiration();
-
-    // Check every minute
     const intervalId = setInterval(checkTokenExpiration, 60000);
 
     return () => {
