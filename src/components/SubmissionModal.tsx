@@ -18,6 +18,8 @@ export default function SubmissionModal({ isOpen, onClose, submission }: Submiss
   const hasStrengths = feedback?.strengths && feedback.strengths.length > 0;
   const hasImprovements = feedback?.improvements && feedback.improvements.length > 0;
 
+  const isCorrectPattern = submission.selectedPatternName === submission.expectedPatternName;
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -45,6 +47,27 @@ export default function SubmissionModal({ isOpen, onClose, submission }: Submiss
           {hasEvaluation ? (
             <div className="evaluation-section">
               <h3>Avaliação</h3>
+
+              {submission.selectedPatternName && submission.expectedPatternName && (
+                <div className="pattern-result-section">
+                  <div className={`pattern-result-item ${isCorrectPattern ? 'correct' : 'incorrect'}`}>
+                    <span className="pattern-result-label">Sua Resposta:</span>
+                    <span className="pattern-result-value">{submission.selectedPatternName}</span>
+                    {isCorrectPattern ? (
+                      <span className="result-icon">✓</span>
+                    ) : (
+                      <span className="result-icon">✗</span>
+                    )}
+                  </div>
+                  {!isCorrectPattern && (
+                    <div className="pattern-result-item correct">
+                      <span className="pattern-result-label">Resposta Correta:</span>
+                      <span className="pattern-result-value">{submission.expectedPatternName}</span>
+                    </div>
+                  )}
+                </div>
+              )}
+
               <div className="score-container">
                 <span className="score-label">Pontuação:</span>
                 <span className={`score-value ${score && score >= 70 ? 'score-good' : 'score-low'}`}>

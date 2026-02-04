@@ -96,24 +96,17 @@ export default function DailyChallenge() {
   const currentPattern = getPatternByName(selectedPatternName);
 
   useEffect(() => {
-    if (currentPattern) {
+    if (currentPattern && !code) {
       setCode(currentPattern.code[language] || '');
     }
-  }, [currentPattern, language]);
+  }, [currentPattern]);
 
   const handlePatternChange = (patternName: string) => {
     setSelectedPatternName(patternName);
-    const pattern = getPatternByName(patternName);
-    if (pattern) {
-      setCode(pattern.code[language]);
-    }
   };
 
   const handleLanguageChange = (lang: Language) => {
     setLanguage(lang);
-    if (currentPattern) {
-      setCode(currentPattern.code[lang]);
-    }
   };
 
   const handleSubmit = async () => {
@@ -290,7 +283,7 @@ export default function DailyChallenge() {
         <div className="code-editor">
           <CodeMirror
             value={code}
-            height="calc(100vh - 70px)"
+            height="100%"
             theme={oneDark}
             extensions={[languageExtensions[language]]}
             onChange={(value) => setCode(value)}

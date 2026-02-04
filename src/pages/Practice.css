@@ -15,7 +15,7 @@
 
 .practice-container {
   display: flex;
-  height: calc(100vh - 0px);
+  height: 100vh;
   background: var(--bg-lightest);
 }
 
@@ -319,7 +319,8 @@
 
 .code-editor {
   flex: 1;
-  overflow: hidden;
+  min-height: 0;
+  overflow: auto;
 }
 
 .code-editor .cm-editor {

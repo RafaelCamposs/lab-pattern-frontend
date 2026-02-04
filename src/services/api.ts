@@ -214,6 +214,8 @@ export interface SubmissionResponse {
     score: number;
     feedback: Feedback;
   } | null;
+  expectedPatternName?: string;
+  selectedPatternName?: string;
 }
 
 export interface PageResponse<T> {

@@ -108,26 +108,18 @@ export default function Practice() {
 
   const currentPattern = getPatternByName(selectedPatternName);
 
-  // Update code when pattern or language changes (only if no active challenge)
   useEffect(() => {
-    if (currentPattern && !challenge) {
+    if (currentPattern && !challenge && !code) {
       setCode(currentPattern.code[language] || '');
     }
-  }, [currentPattern, language, challenge]);
+  }, [currentPattern]);
 
   const handlePatternChange = (patternName: string) => {
     setSelectedPatternName(patternName);
-    const pattern = getPatternByName(patternName);
-    if (pattern) {
-      setCode(pattern.code[language]);
-    }
   };
 
   const handleLanguageChange = (lang: Language) => {
     setLanguage(lang);
-    if (currentPattern) {
-      setCode(currentPattern.code[lang]);
-    }
   };
 
   // Save challenge state to localStorage whenever it changes
@@ -368,7 +360,7 @@ export default function Practice() {
         <div className="code-editor">
           <CodeMirror
             value={code}
-            height="calc(100vh - 70px)"
+            height="100%"
             theme={oneDark}
             extensions={[languageExtensions[language]]}
             onChange={(value) => setCode(value)}
